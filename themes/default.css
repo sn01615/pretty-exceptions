@@ -23,7 +23,8 @@ body
 	background: #FBF6EF;
 }
 
-.str
+.str,
+.atv
 {
 	color: #dcc175;
 }
@@ -38,7 +39,8 @@ body
 	color: #66747B;
 }
 
-.typ
+.typ,
+.tag
 {
 	color: #678CB1;
 }
@@ -58,19 +60,9 @@ body
 	color: #F1F2F3;
 }
 
-.tag
-{
-	color: #8AC763;
-}
-
 .atn
 {
 	color: #E0E2E4;
-}
-
-.atv
-{
-	color: #EC7600;
 }
 
 .dec

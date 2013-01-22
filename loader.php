@@ -25,7 +25,7 @@ namespace Phalcon\Utils;
  */
 error_reporting(-1);
 
-require __DIR__.'/Library/Phalcon/Utils/PrettyExceptions.php';
+require __DIR__ . '/Library/Phalcon/Utils/PrettyExceptions.php';
 
 /**
  * Sets the exception handler

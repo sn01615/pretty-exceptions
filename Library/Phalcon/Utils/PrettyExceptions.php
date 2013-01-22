@@ -144,6 +144,13 @@ class PrettyExceptions
 		</div>';
 	}
 
+	protected function _escapeString($value)
+	{
+		$value = str_replace("\n", "\\n", $value);
+		$value = htmlentities($value, ENT_COMPAT, 'utf-8');
+		return $value;
+	}
+
 	protected function _getArrayDump($argument, $n = 0)
 	{
 		if ($n < 3 && count($argument) > 0 && count($argument) < 8) {
@@ -153,7 +160,7 @@ class PrettyExceptions
 					if ($v === '') {
 						$dump[] = $k . ' => (empty string)';
 					} else {
-						$dump[] = $k . ' => ' . $v;
+						$dump[] = $k . ' => ' . $this->_escapeString($v);
 					}
 				} else {
 
@@ -231,6 +238,10 @@ class PrettyExceptions
 							$arguments[] = '<span class="error-parameter">null</span>';
 						}
 						continue;
+					}
+
+					if (is_string($argument)) {
+						$argument = $this->_escapeString($argument);
 					}
 
 					$arguments[] = '<span class="error-parameter">' . $argument . '</span>';

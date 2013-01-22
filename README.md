@@ -7,7 +7,9 @@ performance and lower resource consumption.
 
 Pretty Exceptions is an utility to show exceptions/errors/warnings/notices using a nicely visualization.
 
-This utility is not intended to be used in production.
+This utility is not intended to be used in a production stage.
+
+This utility catches uncatched exceptions, remember to remove any try/catch that avoid the utility can work.
 
 The code in this repository is written in PHP.
 
