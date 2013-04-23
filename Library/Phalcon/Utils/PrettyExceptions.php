@@ -390,6 +390,8 @@ class PrettyExceptions
 
 		self::$_showActive = true;
 
+    header("Content-type: text/html");
+    
 		echo '<html><head><title>Exception - ', $errorMessage, '</title>', $this->getCssSources(), '</head><body>';
 
 		echo '<div class="error-main">
