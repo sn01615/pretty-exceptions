@@ -137,7 +137,11 @@ class PrettyExceptions
 	 */
 	public function getVersion()
 	{
-		$version = \Phalcon\Version::get();
+		if(class_exists("\Phalcon\Version")){
+			$version = \Phalcon\Version::get();
+		}else{
+			$version = "git-master";
+		}
 		$parts = explode(' ', $version);
 		return '<div class="version">
 			Phalcon Framework <a target="_new" href="http://docs.phalconphp.com/en/' .  $parts[0] . '/">' . $version . '</a>
