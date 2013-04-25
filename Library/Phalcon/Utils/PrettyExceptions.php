@@ -137,7 +137,11 @@ class PrettyExceptions
 	 */
 	public function getVersion()
 	{
-		$version = \Phalcon\Version::get();
+		if(class_exists("\Phalcon\Version")){
+			$version = \Phalcon\Version::get();
+		}else{
+			$version = "git-master";
+		}
 		$parts = explode(' ', $version);
 		return '<div class="version">
 			Phalcon Framework <a target="_new" href="http://docs.phalconphp.com/en/' .  $parts[0] . '/">' . $version . '</a>
@@ -386,6 +390,8 @@ class PrettyExceptions
 
 		self::$_showActive = true;
 
+    header("Content-type: text/html");
+    
 		echo '<html><head><title>Exception - ', $errorMessage, '</title>', $this->getCssSources(), '</head><body>';
 
 		echo '<div class="error-main">
