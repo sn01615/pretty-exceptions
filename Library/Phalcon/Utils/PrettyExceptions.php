@@ -27,6 +27,10 @@ namespace Phalcon\Utils;
  */
 class PrettyExceptions
 {
+	/**
+	 * Reference to the current Phalcon application instance
+	 */
+	 protected $_application;
 
 	/**
 	 * Print the backtrace
@@ -44,6 +48,11 @@ class PrettyExceptions
 	protected $_showFileFragment = false;
 
 	/**
+	 * Show debug information about the application
+	 */
+	protected $_showApplicationDump = false;
+
+	/**
 	 * CSS theme
 	 */
 	protected $_theme = 'default';
@@ -57,6 +66,15 @@ class PrettyExceptions
 	 * Flag to control that only one exception/error is show at time
 	 */
 	static protected $_showActive = false;
+
+	/**
+	 * Constructor
+	 *
+	 * @param Phalcon\Mvc\Application $application OPTIONAL To display a dump of the current state of the Phalcon application instance.
+	 */
+	public function __construct($application = null) {
+		$this->_application =& $application;
+	}
 
 	/**
 	 * Set if the application's files must be opened an showed as part of the backtrace
@@ -76,6 +94,16 @@ class PrettyExceptions
 	public function showFileFragment($showFileFragment)
 	{
 		$this->_showFileFragment = $showFileFragment;
+	}
+
+	/**
+	 * Set to display a dump of the Phalcon application instance
+	 *
+	 * @param boolean $showApplicationDump
+	 */
+	public function showApplicationDump($showApplicationDump)
+	{
+		$this->_showApplicationDump = $showApplicationDump;
 	}
 
 	/**
@@ -321,12 +349,28 @@ class PrettyExceptions
 	}
 
 	/**
+	 * Returns human readable dump of the current Phalcon application instance.
+	 *
+	 * @param Phalcon\Mvc\Application $application OPTIONAL To display a dump of the current state of the Phalcon application instance.
+	 */
+	protected function getApplicationDump($application) {
+		$application = is_null($application) ? $this->_application : $application;
+
+		if (!$this->_showApplicationDump || !($application instanceof \Phalcon\Mvc\Application)) {
+			return;
+		}
+
+		return '<pre class="prettyprint error-scroll">' . print_r($application, true) . '</pre>';
+	}
+
+	/**
 	 * Handles exceptions
 	 *
 	 * @param Exception $e
+	 * @param Phalcon\Mvc\Application $application OPTIONAL To display a dump of the current state of the Phalcon application instance.
 	 * @return boolean
 	 */
-	public function handle($e)
+	public function handle($e, $application = null)
 	{
 
 		if (ob_get_level() > 0) {
@@ -355,6 +399,8 @@ class PrettyExceptions
 			echo '</table></div>';
 		}
 
+		echo $this->getApplicationDump($application);
+
 		echo $this->getVersion();
 
 		echo $this->getJsSources() . '</body></html>';
@@ -371,8 +417,9 @@ class PrettyExceptions
 	 * @param string $errorMessage
 	 * @param string $errorFile
 	 * @param int $errorLine
+	 * @param Phalcon\Mvc\Application $application OPTIONAL To display a dump of the current state of the Phalcon application instance.
 	 */
-	public function handleError($errorCode, $errorMessage, $errorFile, $errorLine)
+	public function handleError($errorCode, $errorMessage, $errorFile, $errorLine, $application = null)
 	{
 
 		if (ob_get_level() > 0) {
@@ -391,7 +438,7 @@ class PrettyExceptions
 		self::$_showActive = true;
 
     header("Content-type: text/html");
-    
+
 		echo '<html><head><title>Exception - ', $errorMessage, '</title>', $this->getCssSources(), '</head><body>';
 
 		echo '<div class="error-main">
@@ -409,6 +456,8 @@ class PrettyExceptions
 			}
 			echo '</table></div>';
 		}
+
+		$this->_showApplicationDump($application);
 
 		echo $this->getVersion();
 
