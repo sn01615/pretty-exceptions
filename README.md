@@ -87,6 +87,14 @@ $p->showFiles(true);
 //Set whether show the complete file or just the relevant fragment
 $p->showFileFragment(true);
 
+/**
+ * Set whether show human readable dump of current Phalcon application instance
+ *  Can optionally pass a Phalcon application instance as a prameter in the
+ *  constructor, or as the last parameter of PrettyExceptions::handle() and
+ *  PrettyExceptions::handleError()
+ */
+$p->showApplicationDump(true);
+
 //Change the CSS theme (default, night or minimalist)
 $p->setTheme('default');
 
