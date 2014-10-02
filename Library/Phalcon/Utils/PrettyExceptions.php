@@ -60,7 +60,7 @@ class PrettyExceptions
 	/**
 	 * Pretty Exceptions
 	 */
-	protected $_uri = '/pretty-exceptions/';
+	protected $_uri = '//cdn.rawgit.com/ovr/pretty-exceptions/master/';
 
 	/**
 	 * Flag to control that only one exception/error is show at time
