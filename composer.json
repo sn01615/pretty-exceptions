@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Phalcon\\Utils\\": "Library/"
+            "Phalcon\\Utils\\": "Library/Phalcon/Utils"
         }
     }
 }
