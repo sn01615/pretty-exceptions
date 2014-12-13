@@ -89,7 +89,7 @@ $p->showFileFragment(true);
 
 /**
  * Set whether show human readable dump of current Phalcon application instance
- *  Can optionally pass a Phalcon application instance as a prameter in the
+ *  Can optionally pass a Phalcon application instance as a parameter in the
  *  constructor, or as the last parameter of PrettyExceptions::handle() and
  *  PrettyExceptions::handleError()
  */
